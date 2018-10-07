@@ -153,4 +153,51 @@ public class ArrayTabulatedFunction implements TabulatedFunction, /*Serializable
             functionPoints[i] = (FunctionPoint)in.readObject();
         }
     }
+
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append('{');
+        for(int i=0; i<getPointCount(); ++i) {
+            sb.append(functionPoints[i].toString());
+            if (i == getPointCount()-1) break;
+            sb.append(", ");
+        }
+        sb.append('}');
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(getClass()!=obj.getClass())
+            return false;
+        TabulatedFunction function = (TabulatedFunction) obj;
+        if(getPointCount()!=function.getPointCount())
+            return false;
+        for (int i=0; i < getPointCount(); i++)
+            if (!getPoint(i).equals(function.getPoint(i)))
+                return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 1;
+        result = 37*result + getPointCount();
+        for(int i = 0; i< getPointCount(); ++i){
+            result = 37*result + functionPoints[i].hashCode();
+        }
+        return result;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        TabulatedFunction tf;
+        FunctionPoint fp[] = new FunctionPoint[getPointCount()];
+        for(int i = 0; i<getPointCount(); ++i){
+            fp[i] = new FunctionPoint(getPointX(i), getPointY(i));
+        }
+        tf = new ArrayTabulatedFunction(fp);
+        return fp;
+    }
 }
