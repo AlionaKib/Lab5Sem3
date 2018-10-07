@@ -253,22 +253,49 @@ public class LinkedListTabulatedFunction implements TabulatedFunction, /*Seriali
 
     @Override
     public String toString() {
-        return super.toString();
+        StringBuffer sb = new StringBuffer();
+        sb.append('{');
+        for(int i=0; i<getPointCount(); ++i) {
+            sb.append(getNodeByIndex(i).getElement().toString());
+            if (i == getPointCount()-1) break;
+            sb.append(", ");
+        }
+        sb.append('}');
+        return sb.toString();
     }
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if(!(obj instanceof TabulatedFunction))
+            return false;
+        TabulatedFunction function = (TabulatedFunction) obj;
+        if(getPointCount()!=function.getPointCount())
+            return false;
+        for (int i=0; i < getPointCount(); i++)
+            if (!getPoint(i).equals(function.getPoint(i)))
+                return false;
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        int result = 1;
+        result = 37*result + getPointCount();
+        for(int i = 0; i< getPointCount(); ++i){
+            result = 37*result + getNodeByIndex(i).getElement().hashCode();
+        }
+        return result;
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    public Object clone() throws CloneNotSupportedException {
+        TabulatedFunction tf;
+        FunctionPoint fp[] = new FunctionPoint[getPointCount()];
+        for(int i = 0; i<getPointCount(); ++i){
+            fp[i] = new FunctionPoint(getPointX(i), getPointY(i));
+        }
+        tf = new LinkedListTabulatedFunction(fp);
+        return tf;
     }
 }
 

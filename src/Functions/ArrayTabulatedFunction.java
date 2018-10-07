@@ -169,7 +169,7 @@ public class ArrayTabulatedFunction implements TabulatedFunction, /*Serializable
 
     @Override
     public boolean equals(Object obj) {
-        if(getClass()!=obj.getClass())
+        if(!(obj instanceof TabulatedFunction))
             return false;
         TabulatedFunction function = (TabulatedFunction) obj;
         if(getPointCount()!=function.getPointCount())
@@ -191,13 +191,13 @@ public class ArrayTabulatedFunction implements TabulatedFunction, /*Serializable
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         TabulatedFunction tf;
         FunctionPoint fp[] = new FunctionPoint[getPointCount()];
         for(int i = 0; i<getPointCount(); ++i){
             fp[i] = new FunctionPoint(getPointX(i), getPointY(i));
         }
         tf = new ArrayTabulatedFunction(fp);
-        return fp;
+        return tf;
     }
 }

@@ -5,6 +5,7 @@ import Functions.basic.Exp;
 import Functions.basic.Log;
 import Functions.basic.Sin;
 import Functions.meta.Composition;
+import javafx.scene.control.Tab;
 
 import java.io.*;
 
@@ -54,15 +55,15 @@ public class Test1 {
 
         Function s = new Sin();
         Function c = new Cos();
-        double k=0;
+        /*double k=0;
         System.out.println("Function value");
         for(int i=0; k < 2*Math.PI; ++i){
             k=0.1*i;
             System.out.println("x = " + k + " sin(x) = " + s.getFunctionValue(k) + ", cos(x) = " + c.getFunctionValue(k));
-        }
-        Function f1 = tabulate(s, 0, 2*Math.PI, 10);
-        Function f2 = tabulate(c, 0, 2*Math.PI, 10);
-        System.out.println("Tabulated function value");
+        }*/
+        TabulatedFunction f1 = tabulate(s, 0, 2*Math.PI, 10);
+        TabulatedFunction f2 = tabulate(c, 0, 2*Math.PI, 10);
+        /*System.out.println("Tabulated function value");
         k=0;
         for(int i=0; k < 2*Math.PI; ++i){
             k=0.1*i;
@@ -136,7 +137,9 @@ public class Test1 {
             System.out.println(e.getMessage());
         } catch (ClassNotFoundException e) {
             e.getStackTrace();
-        }
+        }*/
+        printTabulatedFunction(f1);
+        System.out.println("tabulated sin(x):" + f1.toString());
     }
 
 }
