@@ -12,7 +12,7 @@ public class ArrayTabulatedFunction implements TabulatedFunction, /*Serializable
 
     public ArrayTabulatedFunction(FunctionPoint[] functionPoints){
         if(functionPoints.length<2) throw new IllegalArgumentException();
-        functionPoints = new FunctionPoint[functionPoints.length];
+        this.functionPoints = new FunctionPoint[functionPoints.length];
         for(int i = 0; i<functionPoints.length-1; ++i){
             if(functionPoints[i].getX()>functionPoints[i+1].getX()) throw new IllegalArgumentException();
             this.functionPoints[i] = functionPoints[i];

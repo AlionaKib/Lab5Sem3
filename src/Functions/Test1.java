@@ -54,6 +54,7 @@ public class Test1 {
                     ", count of points: " + func1.getPointCount() + ", function value of last point: " + func1.getPointY(func1.getPointCount() - 1));*/
 
         Function s = new Sin();
+        Function s1 = new Sin();
         Function c = new Cos();
         /*double k=0;
         System.out.println("Function value");
@@ -62,7 +63,7 @@ public class Test1 {
             System.out.println("x = " + k + " sin(x) = " + s.getFunctionValue(k) + ", cos(x) = " + c.getFunctionValue(k));
         }*/
         TabulatedFunction f1 = tabulate(s, 0, 2*Math.PI, 10);
-        TabulatedFunction f2 = tabulate(c, 0, 2*Math.PI, 10);
+        TabulatedFunction f2 = tabulate(s1, 0, 2*Math.PI, 10);
         /*System.out.println("Tabulated function value");
         k=0;
         for(int i=0; k < 2*Math.PI; ++i){
@@ -140,6 +141,23 @@ public class Test1 {
         }*/
         printTabulatedFunction(f1);
         System.out.println("tabulated sin(x):" + f1.toString());
+        if(f1.equals(f2)) System.out.println("f1, f2 is same");
+        System.out.println("Hashcode f2 = " + f2.hashCode() + ", hashcode f1 = " + f1.hashCode());
+        f2.setPointY(2, 7);
+        System.out.println("Setted (1.3962634015954636, 7) at f2");
+        if(!f1.equals(f2)) System.out.println("f1, f2 is different");
+        System.out.println("Hashcode f2 = " + f2.hashCode() + ", hashcode f1 = " + f1.hashCode());
+        try {
+            TabulatedFunction f3 =(TabulatedFunction) f1.clone();
+            if(f1.equals(f3)) System.out.println("f1, f3 is same");
+            System.out.println("Hashcode f3 = " + f3.hashCode() + ", hashcode f1 = " + f1.hashCode());
+            f3.setPointY(2, 7);
+            System.out.println("Setted (1.3962634015954636, 7) at f3");
+            if(!f1.equals(f3)) System.out.println("f1, f3 is different");
+            System.out.println("Hashcode f3 = " + f3.hashCode() + ", hashcode f1 = " + f1.hashCode());
+        } catch (CloneNotSupportedException e){
+            e.getStackTrace();
+        }
     }
 
 }
